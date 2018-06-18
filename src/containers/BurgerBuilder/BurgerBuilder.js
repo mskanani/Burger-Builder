@@ -4,10 +4,10 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 
 const INGREDIENT_PRICES = { //Global constance
-    salad:    3,
-    cheese:   5,
-    mushroom: 5,
-    meat:     5
+    salad:    0.4,
+    cheese:   0.5,
+    mushroom: 0.3,
+    meat:     0.7
 }
 
 class BurgerBuilder extends Component {
@@ -23,7 +23,7 @@ class BurgerBuilder extends Component {
             mushroom: 0,
             meat:     0
         },
-        totalPrice: 25
+        totalPrice: 6
     }
 
     addIngredientHandler = (type) => {
@@ -70,7 +70,8 @@ class BurgerBuilder extends Component {
                 <BuildControls
                     ingredientAdded={this.addIngredientHandler} 
                     ingredientRemoved={this.removeIngredientHandler}
-                    disabled={disabledInfo} />
+                    disabled={disabledInfo}
+                    price={this.state.totalPrice} />
             </Aux>
         );
     }
