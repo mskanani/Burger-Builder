@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummery from '../../components/Burger/OrderSummery/OrderSummery';
 
 const INGREDIENT_PRICES = { //Global constance
     salad:    0.4,
@@ -79,6 +81,9 @@ class BurgerBuilder extends Component {
         }
         return(
             <Aux>
+                <Modal>
+                    <OrderSummery ingredients={this.state.ingredients} />
+                </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls
                     ingredientAdded={this.addIngredientHandler} 
