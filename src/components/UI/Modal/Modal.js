@@ -5,7 +5,7 @@ import Backdrop from '../Backdrop/Backdrop';
 
 class Modal extends Component {
     shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.show !== this.props.show;
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children; // The second one for the case of switching between the summery and the spinner
     }
     componentWillUpdate() {
         console.log('[Modal] will update');
