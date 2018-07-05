@@ -4,6 +4,7 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummery from '../../components/Burger/OrderSummery/OrderSummery';
+import axios from '../../axios-orders';
 
 const INGREDIENT_PRICES = { //Global constance
     salad:    0.4,
@@ -84,7 +85,25 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        alert('You continue!');
+        //alert('You continue!');
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice, //in a real app this should be calculated on the server to make sure that the user is not manipulating the price before sending it
+            customer: {
+                name: 'Mahmoud',
+                address: {
+                    country: 'UAE',
+                    city: 'Dubai'
+                },
+                email: 'mahmoud.srouji@gmail.com'
+            },
+            deliveryMethod: 'fastest'
+        }
+        axios.post('/orders.json', order).then(response => {
+            console.log(response);
+        }).catch(error => {
+            console.log(error);
+        });
     }
 
     render() {
