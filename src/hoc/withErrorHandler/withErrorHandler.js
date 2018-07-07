@@ -8,17 +8,23 @@ const withErrorHandler = (WrappedComponent, axios) => {
             error: null
         }
         componentWillMount() {
-            axios.interceptors.request.use(request => { // Whenever we send a request, we set the error state to null by default
+            this.requestInterceptor = axios.interceptors.request.use(request => { // Whenever we send a request, we set the error state to null by default
                 this.setState({
                     error: null
                 });
                 return request; //when sending the request, we have to return it so that the request can continue
             })  
-            axios.interceptors.response.use(response => response, error => { //response => response the shortest way of writing an arrow function
+            this.responseInterceptor = axios.interceptors.response.use(response => response, error => { //response => response the shortest way of writing an arrow function
                 this.setState({
                     error: error
                 });
             })
+        }
+
+        componentWillUnmount() {
+            //console.log('Will Unmount', this.requestInterceptor, this.responseInterceptor);
+            axios.interceptors.request.eject(this.requestInterceptor);
+            axios.interceptors.response.eject(this.responseInterceptor);
         }
 
         errorConfirmedHandler = () => { // To close the Modal once clicked
