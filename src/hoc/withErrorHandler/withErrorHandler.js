@@ -7,7 +7,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
         state = {
             error: null
         }
-        componentDidMount() {
+        componentWillMount() {
             axios.interceptors.request.use(request => { // Whenever we send a request, we set the error state to null by default
                 this.setState({
                     error: null
