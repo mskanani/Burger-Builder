@@ -11,10 +11,22 @@ class Checkout extends Component {
         }
     }
 
+    checkoutCancelledHandler = () => {
+        // Since this component was loaded through the route component, we have access to history...etc
+        this.props.history.goBack();
+    }
+
+    checkoutContinuedHandler = () => {
+        this.props.history.replace('checkout/contact-data');
+    }
+
     render() {
         return(
             <div>
-                <CheckoutSummery ingredients={this.state.ingredients} />
+                <CheckoutSummery 
+                    ingredients={this.state.ingredients} 
+                    checkoutCancelled={this.checkoutCancelledHandler}
+                    checkoutContinued={this.checkoutContinuedHandler} />
             </div>
         );
     }
