@@ -22,7 +22,7 @@ class App extends Component {
       <Layout>
           <Switch>
             <Route path="/checkout" component={Checkout} />
-            <Route path="/" component={BurgerBuilder} />
+            <Route path="/" exact component={BurgerBuilder} />
           </Switch>
           { /* By defaul / is treat me as a prefix standard so both will load if we don't use exact attribute or the switch component.. in case of using switch without exact, the order of the components matters */ }
       </Layout>

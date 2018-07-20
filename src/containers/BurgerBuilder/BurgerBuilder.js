@@ -32,6 +32,8 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
+
         axios.get('https://react-my-burger-954cd.firebaseio.com/ingredients.json')
             .then(response => {
                 this.setState({ ingredients: response.data });
@@ -96,6 +98,8 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         //alert('You continue!');
+
+        /*
         this.setState({ loading:true });
         const order = {
             ingredients: this.state.ingredients,
@@ -122,6 +126,8 @@ class BurgerBuilder extends Component {
                 purchasing: false // To close the Modal
             });
         });
+        */
+       this.props.history.push('/checkout');
     }
 
     render() {
