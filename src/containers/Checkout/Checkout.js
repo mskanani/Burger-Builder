@@ -11,6 +11,18 @@ class Checkout extends Component {
         }
     }
 
+    componentDidMount() {
+        const query = new URLSearchParams(this.props.location.search);
+        const ingredients = {};
+        //console.log(query.entries());
+        for(let param of query.entries()) { //for of not for in
+            // each param is like ['','']
+            ingredients[param[0]] = +param[1]; //the + to convert the string to number
+        }
+        //console.log(ingredients); 
+        this.setState({ ingredients: ingredients });
+    }
+
     checkoutCancelledHandler = () => {
         // Since this component was loaded through the route component, we have access to history...etc
         this.props.history.goBack();
