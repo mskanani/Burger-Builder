@@ -5,24 +5,25 @@ import ContactData from './ContactData/ContactData';
 
 class Checkout extends Component {
     state = {
-        ingredients: {
-            salad:    1,
-            cheese:   1,
-            mushroom: 1,
-            meat:     1
-        }
+        ingredients: null,
+        totalPrice: 0
     }
 
-    componentDidMount() {
+    componentWillMount() { //We use WillMount, so before we render the child component
         const query = new URLSearchParams(this.props.location.search);
         const ingredients = {};
+        let price = 0;
         //console.log(query.entries());
         for(let param of query.entries()) { //for of not for in
             // each param is like ['','']
-            ingredients[param[0]] = +param[1]; //the + to convert the string to number
+            if(param[0] === 'price') {
+                price = param[1];
+            } else {
+                ingredients[param[0]] = +param[1]; //the + to convert the string to number
+            }
         }
-        //console.log(ingredients); 
-        this.setState({ ingredients: ingredients });
+        console.log(price+'1'); 
+        this.setState({ ingredients: ingredients, totalPrice: price });
     }
 
     checkoutCancelledHandler = () => {
@@ -42,7 +43,7 @@ class Checkout extends Component {
                     checkoutCancelled={this.checkoutCancelledHandler}
                     checkoutContinued={this.checkoutContinuedHandler} />
 
-                <Route path={this.props.match.path + '/contact-data'} component={ContactData} />    
+                <Route path={this.props.match.path + '/contact-data'} render={(props) => (<ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props} />)} /> { /* Since we are rendering ContactData manualy (using render not component) we can pass props to it */ }   
             </div>
         );
     }
