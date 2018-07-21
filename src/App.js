@@ -3,6 +3,7 @@ import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Checkout from './containers/Checkout/Checkout';
 import { Route, Switch } from 'react-router-dom';
+import Orders from './containers/Orders/Orders';
 
 class App extends Component {
   /*state = {
@@ -22,6 +23,7 @@ class App extends Component {
       <Layout>
           <Switch>
             <Route path="/checkout" component={Checkout} />
+            <Route path="/orders" component={Orders} />
             <Route path="/" exact component={BurgerBuilder} />
           </Switch>
           { /* By defaul / is treat me as a prefix standard so both will load if we don't use exact attribute or the switch component.. in case of using switch without exact, the order of the components matters */ }
