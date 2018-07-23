@@ -2,10 +2,25 @@ import React from 'react';
 import classes from './Order.css';
 
 const order = (props) => {
+    const ingredients = [];
+    for(let ingredientName in props.ingredients) { // an alternative way to what we have done in burger.js
+        ingredients.push(
+            {
+                name: ingredientName, 
+                amount: props.ingredients[ingredientName]
+            });
+    }
+
+    const ingredientsOutput = ingredients.map(ig => {
+        return <span 
+            style={{ textTransform: 'capitalize', display: 'inline-block', margin: '0 8px', border: '1px solid #ccc', padding: '5px 8px' }}    
+            key={ig.name}>{ig.name} ({ig.amount}) </span>
+    });
+
     return(
         <div className={classes.Order}>
-            <p>Ingredients: </p>
-            <p>Price: <strong></strong></p>
+            <p>Ingredients: {ingredientsOutput}</p>
+            <p>Price: <strong>USD {Number.parseFloat(props.price).toFixed(2) /* toFixed only work on numbers*/ }</strong></p>
         </div>
     );
 }
