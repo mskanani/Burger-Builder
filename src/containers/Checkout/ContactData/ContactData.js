@@ -7,7 +7,7 @@ import Input from '../../../components/UI/Input/Input';
 
 class ContactData extends Component {
     state = {
-        orderForm :{
+        orderForm : {
             name: {
                 elementType: 'input',
                 elementConfig: {
@@ -16,19 +16,19 @@ class ContactData extends Component {
                 },
                 value: ''
             },
-            country: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Country'
-                },
-                value: ''
-            },
             email: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
                     placeholder: 'Email address'
+                },
+                value: ''
+            },
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Country'
                 },
                 value: ''
             },
@@ -77,6 +77,17 @@ class ContactData extends Component {
         
     }
 
+    inputChangedHandler = (event, inputIdentifier) => {
+        const updatedOrderForm = {
+            ...this.state.orderForm //the object will not copied deeply (no nested objects)
+        }
+        const updatedFormElement = { ...updatedOrderForm[inputIdentifier] };
+        updatedFormElement.value = event.target.value;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        this.setState({orderForm: updatedOrderForm});
+        //console.log(event.target.value);
+    }
+
     render() {
         const formElementsArray = [];
         for(let key in this.state.orderForm) {
@@ -92,7 +103,8 @@ class ContactData extends Component {
                         key={formElement.id}
                         elementType={formElement.config.elementType} 
                         elementConfig={formElement.config.elementConfig} 
-                        value={formElement.config.value} />
+                        value={formElement.config.value}
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)} /> //event object is created by react automatically
                 )) }
                 <Button btnType="Success" clicked={this.orderHandler}>Order</Button>
             </form>
