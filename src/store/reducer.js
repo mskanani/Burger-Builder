@@ -10,6 +10,13 @@ const initialState = {
     totalPrice: 6,
 };
 
+const INGREDIENT_PRICES = { //Global constance
+    salad:    0.4,
+    cheese:   0.5,
+    mushroom: 0.3,
+    meat:     0.7
+};
+
 const reducer = (state = initialState, action) => {
     switch(action.type) { //here we don't need break because we are returning anyways
         case actionTypes.ADD_INGREDIENT:
@@ -18,7 +25,8 @@ const reducer = (state = initialState, action) => {
                 ingredients: {
                     ...state.ingredients,
                     [action.ingredientName]: state.ingredients[action.ingredientName] + 1
-                }
+                },
+                totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
             };
         case actionTypes.REMOVE_INGREDIENT:
             return {
@@ -26,7 +34,8 @@ const reducer = (state = initialState, action) => {
                 ingredients: {
                     ...state.ingredients,
                     [action.ingredientName]: state.ingredients[action.ingredientName] - 1
-                }
+                },
+                totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
             };
         default:
             return state;
