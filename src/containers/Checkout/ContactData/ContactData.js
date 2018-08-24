@@ -169,6 +169,7 @@ class ContactData extends Component {
             </form>
         );
         if(this.props.loading) {
+            
             form = <Spinner />
         }
         return(
