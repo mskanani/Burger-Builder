@@ -17,13 +17,14 @@ const INGREDIENT_PRICES = { //Global constance
 const reducer = (state = initialState, action) => {
     switch(action.type) { //here we don't need break because we are returning anyways
         case actionTypes.ADD_INGREDIENT:
-            const updatedIngredient  = {[action.ingredientName]: state.ingredients[action.ingredientName] + 1};
-            const updatedIngredients = updateObject(...state.ingredients, updatedIngredient);
+            const updatedIngredient = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1 };
+            const updatedIngredients = updateObject( state.ingredients, updatedIngredient );
             const updatedState = {
                 ingredients: updatedIngredients,
                 totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
             };
             return updateObject(state, updatedState); // (passing state) only this line is not enough because it does not create deep clones of objects
+
         case actionTypes.REMOVE_INGREDIENT:
             const updatedIngredient_  = {[action.ingredientName]: state.ingredients[action.ingredientName] - 1};
             const updatedIngredients_ = updateObject(...state.ingredients, updatedIngredient_);
